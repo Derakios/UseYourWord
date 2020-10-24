@@ -37,23 +37,22 @@
 			Ajouter une phrase, vidéo ou image :
 		</div>
 		
-		<div class="bloc">
-			<input type="text" name="donnee" id="donnee" th:if="${}" value="Phrase ou lien." />
-		</div>
-		
-		<div class="bloc">
-			<select name="selectDonnee" id="selectDonnee">
-				<option value="phrase" id="phrase" >Phrase</option>
-				<option value="video" id="video" >Vidéo</option>
-				<option value="image" id="image" >Image</option>
-			</select>
-		</div>
-		
-		<div class="bloc">
-			<br>
-			<form method="">
-				<input type="submit" th:field="*{newGame}" value="Nouvelle partie"/>
-			</form>
-		</div>
+		<form method="POST">
+            <div class="bloc">
+                <select name="selectDonnee" id="selectDonnee">
+                    <option value="phrase" id="phrase" >Phrase</option>
+                    <option value="video" id="video" >Vidéo</option>
+                    <option value="image" id="image" >Image</option>
+                </select>
+            </div>
+
+            <div class="bloc">
+                <input type="text" name="donnee" id="donnee" placeHolder="Phrase ou lien." />
+            </div>
+			<div>
+                <button type="submit">Enregistrer</button>
+            </div>
+        </form>
+        
 	</body>
 </html>

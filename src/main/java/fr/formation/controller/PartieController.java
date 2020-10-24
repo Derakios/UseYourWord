@@ -17,12 +17,7 @@ public class PartieController {
 	
 	@GetMapping
 	public String home(Model model,@RequestParam(required=false,defaultValue="0") int id) throws Exception {
-		
-		/*model.addAttribute("id",id);
-		model.addAttribute("pieces",srvPartie.findAll());
-		if(id !=0) {
-			model.addAttribute("matrice",srvPartie.get(id).getForm());
-		}*/
+
 		return "home";
 	}
 	
