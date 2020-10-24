@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Écran de fin</title>
+		
+		<style>
+			p {
+                display: inline-block;
+            }
+            
+            body {
+            	text-align: center;
+            }
+            
+            .bloc {
+                font-family: "Gill Sans", sans-serif;
+                font-weight: bold;
+			}
+			
+			.ligneTab {
+				font-family: "Gill Sans", sans-serif;
+			}
+			
+			table {
+				margin: auto;
+			}
+			
+			table,
+			td {
+			    border: 1px solid #333;
+			}
+			
+			thead,
+			tfoot {
+			    background-color: #708090;
+			    color: #fff;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<form>
+			<div class="bloc">
+				<p>Fin de partie</p>
+			</div>
+			
+			<!-- Affichage de l'équipe gagnante -->
+			<div class="bloc">
+				<p>Équipe gagnante : <span th:text="${winner}">.</span></p>
+			</div>
+			
+			<!-- Affichage de tous les joueurs de l'équipe et de leur score  -->
+			<table>
+				<br>
+				<thead class="bloc">
+					<tr>
+						<th colspan="2">Tableau des scores</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="bloc">
+						<td>Nom joueur</td>
+						<td>Score</td>
+					</tr>
+					<tr class="ligneTab" th:each="... : ${}">
+						<td th:text="${}">test</td>
+						<td th:text="${}">test</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<div class="bloc">
+				<br>
+				<p>Score total de l'équipe : <span th:text="${scoreEquipe}">.</span></p>
+			</div>
+			
+			<div class="bloc">
+				<br>
+				<br>
+				<button type="submit" value="Fin">Finir la partie</button>
+			</div>
+		</form>
+	</body>
+</html>

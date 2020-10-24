@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Création de joueur</title>
+		
+		<style>
+			.bloc {
+                font-family: "Gill Sans", sans-serif;
+                font-weight: bold;
+			}
+			
+			p {
+                display: inline-block;
+            }
+            
+            body {
+            	text-align: center;
+            }
+            
+            input[type=text] {
+            	border-radius:5px;
+            }
+            
+            button[type=submit] {
+			    padding:5px 15px; 
+			    background:#ccc; 
+			    border:0 none;
+			    cursor:pointer;
+			    -webkit-border-radius: 5px;
+			    border-radius: 5px; 
+			}
+			
+			.button {
+              	font: bold 11px Arial;
+              	text-decoration: none;
+              	background-color: #EEEEEE;
+             	color: #333333;
+              	padding: 2px 6px 2px 6px;
+              	border-top: 1px solid #CCCCCC;
+              	border-right: 1px solid #333333;
+              	border-bottom: 1px solid #333333;
+              	border-left: 1px solid #CCCCCC;
+              	border-radius:5px;
+            }
+		</style>
+	</head>
+	<body>
+		<form method="POST">
+			<div class="bloc">
+				<p>Création de joueur :</p>
+			</div>
+			
+			<div class="bloc">
+				<input type="text" id="joueur" name="joueur" value="Nom du joueur" size="20px" />
+			</div>
+			
+			<div class="bloc">
+				<br>
+				<p>Choix de l'équipe :</p>
+			</div>
+			
+			<div class="bloc">
+				<!-- A vérifier comment se fait un select avec les options + th:each -->
+				<select th:field="*{equipes}">
+					<option th:each="equipe : ${listeEquipes}" th:value="${equipe.name}" th:text="${equipe.name}" />
+				</select>
+			</div>
+			
+			<div class="bloc">
+				<br>
+				<br>
+				<button type="submit" value="Créer">Créer</button>
+			</div>
+		</form>
+	</body>
+</html>

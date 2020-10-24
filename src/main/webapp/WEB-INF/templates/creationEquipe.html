@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Création d'équipe</title>
+		
+		<style>
+			.bloc {
+                font-family: "Gill Sans", sans-serif;
+                font-weight: bold;
+			}
+			
+			.switch {
+				position: relative;
+				display: inline-block;
+			 	width: 60px;
+				height: 34px;
+                bottom: 6px;
+			}	
+			
+			.slider {
+			  	position: absolute;
+		  		cursor: pointer;
+		  		top: 0;
+				left: 0;
+		  		right: 0;
+		  		bottom: 0;
+		  		background-color: #ccc;
+		  		-webkit-transition: .4s;
+		  		transition: .4s;
+			}
+			
+            .switch input { 
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+            
+			.slider:before {
+			  	position: absolute;
+			  	content: "";
+			  	height: 26px;
+			  	width: 26px;
+			  	left: 4px;
+			  	bottom: 4px;
+			  	background-color: white;
+			  	-webkit-transition: .4s;
+			  	transition: .4s;
+			}
+			
+			input:checked + .slider {
+			  	background-color: #2196F3;
+			}
+			
+			input:focus + .slider {
+			  	box-shadow: 0 0 1px #2196F3;
+			}
+			
+			input:checked + .slider:before {
+			  	-webkit-transform: translateX(26px);
+			  	-ms-transform: translateX(26px);
+			  	transform: translateX(26px);
+			}
+			
+			.slider.round {
+			  	border-radius: 34px;
+			}
+			
+			.slider.round:before {
+			  	border-radius: 50%;
+			}
+            
+            p {
+                display: inline-block;
+                font-size: 19px;
+            }
+            
+            body {
+            	text-align: center;
+            }
+            
+            .row2 {
+                position: absolute;
+                left: 43%;
+            }
+            .row3 {
+                position: absolute;
+                left: 48%;
+            }
+            .row4 {
+                position: absolute;
+                left: 53%;
+            }
+            
+            input[type=text] {
+            	border-radius:5px;
+            }
+            
+            button[type=submit] {
+			    padding:5px 15px; 
+			    background:#ccc; 
+			    border:0 none;
+			    cursor:pointer;
+			    -webkit-border-radius: 5px;
+			    border-radius: 5px; 
+			}
+		</style>
+		
+		<script type="text/javascript">
+			function handleClick() { 
+				var checkbox = document.getElementById("equipeSwitch");
+				
+				var div = document.getElementById("divRadioButtonsEquipes");
+				var div2 = document.getElementById("divTextEquipes");
+				
+				var radioB1 = document.getElementsByName('team')[0];
+				var radioB2 = document.getElementsByName('team')[1];
+				var radioB3 = document.getElementsByName('team')[2];
+				
+				var textE1 = document.getElementById('teamI1');
+				var textE2 = document.getElementById('teamI2');
+				var textE3 = document.getElementById('teamI3');
+				
+				if(checkbox.checked) {
+					div.style.display = "block";
+					div2.style.display = "block";
+				} else {
+					div.style.display = "none";
+					div2.style.display = "none";
+					
+					radioB1.checked = false;
+					radioB2.checked = false;
+					radioB3.checked = false;
+					
+					textE1.value = "";
+					textE2.value = "";
+					textE3.value = "";
+				}
+			}
+			
+			window.onload = function() {
+				handleClick();
+			};
+		</script>
+         
+	</head>
+	
+	<body>
+		<form method="POST">
+			<div class="bloc">
+				<p>Voulez-vous jouez en équipe ?</p>
+				<label class="switch">
+				  <input type="checkbox" onchange="handleClick();" id="equipeSwitch">
+				  <span class="slider round"></span>
+				</label>
+			</div>
+			
+			<!-- Afficher les radio bouttons si le slider est à true -->
+			<div id="divRadioButtonsEquipes" class="bloc">
+				<p> Nombre d'équipes : </p>
+				<div class="row2"><input type="radio" id="team1" name="team" value="1" >1</div>
+	  			
+	  			<div class="row3"><input type="radio" id="team2" name="team" value="2" >2</div>
+	  			
+	  			<div class="row4"><input type="radio" id="team3" name="team" value="3" >3</div>
+	            
+			</div>
+			
+			<!-- Afficher les input si le slider est à true -->
+			<div id="divTextEquipes" class="bloc">
+	        	<br>
+	            <br>
+				<input id="teamI1" name="team1" type="text" placeholder="Equipe1" size="15px" th:if="${}" />
+	            <input id="teamI2" name="team2" type="text" placeholder="Equipe2" size="15px" th:if="${}" />
+	            <input id="teamI3" name="team3" type="text" placeholder="Equipe3" size="15px" th:if="${}" />
+			</div>
+			
+			<div class="bloc">
+	          	<br>
+	          	<button type="submit" value="Valider">Valider</button>
+			</div>
+		</form>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+

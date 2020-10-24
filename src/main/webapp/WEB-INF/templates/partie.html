@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Partie</title>
+		
+		<style>
+			
+			.bloc {
+                font-weight: bold;
+			}
+			
+			p {
+                display: inline-block;
+                font-size: 35px;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            
+            body {
+            	text-align: center;
+            }
+            
+            input[type=text] {
+            	border-radius:5px;
+            }
+		</style>
+	</head>
+	<body>
+		<div>
+			<p>Use Your Words</p>
+		</div>
+		
+		<!-- Phrase -->
+		<div class="bloc" th:if="${}">
+			<input type="text" th:name="@{}" th:value="@{}" size="100px" disabled="disabled" />
+		</div>
+		
+		<!-- Image -->
+		<div class="bloc" th:if="${}">
+			<img th:src="@{}"/>
+		</div>
+		
+		<!-- Vidéo -->
+		<div class="bloc" th:if="${}">
+			<video width="320" height="240" controls>
+				<source th:src="@{}" type="video/mp4">
+			</video> 
+		</div>
+		
+		<!-- Réponses des joueurs -->
+		<div th:each="... : ${}" class="bloc">
+			<!-- Pour chaque joueur de chaque équipe -->
+			<div th:each="... : ${}">
+				<input type="text" th:id="@{}" th:name="@{}" th:placeholder="#{}"/>
+			</div>
+		</div>
+		
+	</body>
+</html>

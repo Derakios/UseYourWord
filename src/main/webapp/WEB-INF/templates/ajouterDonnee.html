@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Ajouter des données</title>
+		
+		<style>
+			.bloc {
+				font-family: "Gill Sans", sans-serif;
+                font-weight: bold;
+			}
+			
+			p {
+                display: inline-block;
+            }
+            
+            body {
+            	text-align: center;
+            }
+            
+            input[type=text] {
+            	border-radius:5px;
+            }
+            
+			input[type=submit] {
+			    padding:5px 15px; 
+			    background:#ccc; 
+			    border:0 none;
+			    cursor:pointer;
+			    -webkit-border-radius: 5px;
+			    border-radius: 5px; 
+			}
+		</style>
+	</head>
+	<body align="center">
+		<div class="bloc">
+			Ajouter une phrase, vidéo ou image :
+		</div>
+		
+		<div class="bloc">
+			<input type="text" name="donnee" id="donnee" th:if="${}" value="Phrase ou lien." />
+		</div>
+		
+		<div class="bloc">
+			<select name="selectDonnee" id="selectDonnee">
+				<option value="phrase" id="phrase" >Phrase</option>
+				<option value="video" id="video" >Vidéo</option>
+				<option value="image" id="image" >Image</option>
+			</select>
+		</div>
+		
+		<div class="bloc">
+			<br>
+			<form method="">
+				<input type="submit" th:field="*{newGame}" value="Nouvelle partie"/>
+			</form>
+		</div>
+	</body>
+</html>
