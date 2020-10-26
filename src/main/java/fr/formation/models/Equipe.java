@@ -26,6 +26,9 @@ public class Equipe {
 	@Column(name="EQU_ID")
 	private int id;
 	
+	@Column(name="EQU_NOM")
+	private String nom;
+	
 	@OneToMany
 	@JoinColumn(name = "joueurs_fk")
 	private List<Joueur> listeJoueurs = new ArrayList<Joueur>();
@@ -36,6 +39,38 @@ public class Equipe {
 	
 	public Equipe() {
 		
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public List<Joueur> getListeJoueurs() {
+		return listeJoueurs;
+	}
+
+	public void setListeJoueurs(List<Joueur> listeJoueurs) {
+		this.listeJoueurs = listeJoueurs;
+	}
+
+	public List<Reponse> getListeReponses() {
+		return listeReponses;
+	}
+
+	public void setListeReponses(List<Reponse> listeReponses) {
+		this.listeReponses = listeReponses;
 	}
 	
 }
