@@ -14,6 +14,10 @@
                 display: inline-block;
             }
             
+            .row {
+                display: inline-block;
+            }
+            
             body {
             	text-align: center;
             }
@@ -61,10 +65,9 @@
 			</div>
 			
 			<div class="bloc">
-				<!-- A vérifier comment se fait un select avec les options + th:each -->
-				<select th:field="*{equipes}">
-					<option th:each="equipe : ${listeEquipes}" th:value="${equipe.name}" th:text="${equipe.name}" />
-				</select>
+				<div class="row" th:each="equipe :${listeEquipes}">
+					<label th:text="${equipe.nom}" />
+				</div>
 			</div>
 			
 			<div class="bloc">

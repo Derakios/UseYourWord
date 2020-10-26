@@ -40,29 +40,36 @@ public class PartieController {
 		Equipe E1 = new Equipe();
 		E1.setNom(nomE1);
 		this.srvPartie.addEquipe(E1);
+		listeEquipe.add(E1);
 		String nomE2 = contenu.get("team2");
 		Equipe E2 = new Equipe();
 		E2.setNom(nomE2);
 		this.srvPartie.addEquipe(E2);
-		String nomE3 = contenu.get("team3");
-		Equipe E3 = new Equipe();
-		E3.setNom(nomE1);
-		this.srvPartie.addEquipe(E3);
-		
-		listeEquipe.add(E1);
 		listeEquipe.add(E2);
-		listeEquipe.add(E3);
+		String nomE3 = contenu.get("team3");
+		if(nomE3 != null) {
+			if(!nomE3.equals("")) {
+				Equipe E3 = new Equipe();
+				E3.setNom(nomE1);
+				this.srvPartie.addEquipe(E3);
+				listeEquipe.add(E3);
+			}
+		}
 		
 		partie.setListeEquipes(listeEquipe);
 		
 		this.srvPartie.add(partie);
 		
-		model.addAttribute("listeEquipes",this.srvPartie.getAllEquipe());
+		model.addAttribute("listeEquipes",listeEquipe);
 		model.addAttribute("nbE1", contenu.get("listNbJ1"));
 		model.addAttribute("nbE2", contenu.get("listNbJ2"));
-		model.addAttribute("nbE3", contenu.get("listNbJ3"));
+		if(nomE3 != null) {
+			if(!nomE3.equals("")) {
+				model.addAttribute("nbE3", contenu.get("listNbJ3"));
+			}
+		}
 		
-		return "redirect:/joueur";
+		return "CreationJoueur";
 	}
 	
 	@GetMapping("/joueur")
