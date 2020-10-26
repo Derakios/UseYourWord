@@ -26,6 +26,11 @@ public class PartieController {
 		return "creationEquipe";
 	}
 	
+	@PostMapping("/equipe")
+	public String equipe(@RequestParam Map<String,String> contenu){
+		return "CreationJoueur";
+	}
+	
 	@GetMapping("/ajoutDonnees")
 	public String ajoutDonnees(Model model){
 		return "ajouterDonnee";
