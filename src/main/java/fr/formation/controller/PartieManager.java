@@ -7,10 +7,12 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fr.formation.dao.IEquipeRepository;
 import fr.formation.dao.IImageRepository;
 import fr.formation.dao.IPartieRepository;
 import fr.formation.dao.IPhraseRepository;
 import fr.formation.dao.IVideoRepository;
+import fr.formation.models.Equipe;
 import fr.formation.models.Image;
 import fr.formation.models.Partie;
 import fr.formation.models.Phrase;
@@ -27,6 +29,8 @@ public class PartieManager {
 	private IVideoRepository daoVideo;
 	@Autowired
 	private IPhraseRepository daoPhrase;
+	@Autowired
+	private IEquipeRepository daoEquipe;
 	
 	public void addDonnees(String lien, String type) {
 		
@@ -47,6 +51,14 @@ public class PartieManager {
 				this.daoPhrase.save(phrase);
 				break;
 		}
+	}
+	
+	public void addEquipe(Equipe equipe) {
+		this.daoEquipe.save(equipe);
+	}
+	
+	public List<Equipe> getAllEquipe() {
+		return this.daoEquipe.findAll();
 	}
 	
 	public List<Image> getAllImage() {

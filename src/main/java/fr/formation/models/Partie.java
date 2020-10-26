@@ -37,5 +37,29 @@ public class Partie {
 	public Partie() {
 		
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public List<Equipe> getListeEquipes() {
+		return listeEquipes;
+	}
+
+	public void setListeEquipes(List<Equipe> listeEquipes) {
+		this.listeEquipes = listeEquipes;
+	}
+
+	public List<Manche> getListeManches() {
+		return listeManches;
+	}
+
+	public void setListeManches(List<Manche> listeManches) {
+		this.listeManches = listeManches;
+	}
 	
 }
