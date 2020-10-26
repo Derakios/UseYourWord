@@ -10,6 +10,10 @@
                 font-weight: bold;
 			}
 			
+			.divList {
+				 display: inline-block;
+			}
+			
 			.switch {
 				position: relative;
 				display: inline-block;
@@ -79,17 +83,13 @@
             	text-align: center;
             }
             
-            .row2 {
-                position: absolute;
-                left: 43%;
-            }
             .row3 {
                 position: absolute;
-                left: 48%;
+                left: 45%;
             }
             .row4 {
                 position: absolute;
-                left: 53%;
+                left: 50%;
             }
             
             input[type=text] {
@@ -113,29 +113,114 @@
 				var div = document.getElementById("divRadioButtonsEquipes");
 				var div2 = document.getElementById("divTextEquipes");
 				
-				var radioB1 = document.getElementsByName('team')[0];
-				var radioB2 = document.getElementsByName('team')[1];
-				var radioB3 = document.getElementsByName('team')[2];
+				var divEveryTeam = document.getElementById("divEveryTeam");
+				
+				var radioB2 = document.getElementsByName('team')[0];
+				var radioB3 = document.getElementsByName('team')[1];
 				
 				var textE1 = document.getElementById('teamI1');
 				var textE2 = document.getElementById('teamI2');
 				var textE3 = document.getElementById('teamI3');
 				
+				var listJ1 = document.getElementById('divListNbJ1');
+				var listJ2 = document.getElementById('divListNbJ2');
+				var listJ3 = document.getElementById('divListNbJ3');
+				
+				var valueListJ1 = document.getElementById('listNbJ1');
+				var valueListJ2 = document.getElementById('listNbJ2');
+				var valueListJ3 = document.getElementById('listNbJ3');
+				
 				if(checkbox.checked) {
 					div.style.display = "block";
 					div2.style.display = "block";
+					
+					textE1.style.display = "none";
+					textE2.style.display = "none";
+					textE3.style.display = "none";
+					
+					textE1.value = "";
+					textE2.value = "";
+					textE3.value = "";
+					
 				} else {
 					div.style.display = "none";
 					div2.style.display = "none";
 					
-					radioB1.checked = false;
 					radioB2.checked = false;
 					radioB3.checked = false;
+					
+					divEveryTeam.style.display = "none";
+					
+					listJ1.style.display = "none";
+					listJ2.style.display = "none";
+					listJ3.style.display = "none";
+					
+					valueListJ1.value = "";
+					valueListJ2.value = "";
+					valueListJ3.value = "";
 					
 					textE1.value = "";
 					textE2.value = "";
 					textE3.value = "";
 				}
+			}
+			
+			function afficheInput(radButton){
+				var textE1 = document.getElementById('teamI1');
+				var textE2 = document.getElementById('teamI2');
+				var textE3 = document.getElementById('teamI3');
+				
+				var radioB2 = document.getElementsByName('team')[0];
+				var radioB3 = document.getElementsByName('team')[1];
+				
+				var listJ1 = document.getElementById('divListNbJ1');
+				var listJ2 = document.getElementById('divListNbJ2');
+				var listJ3 = document.getElementById('divListNbJ3');
+				
+				var valueListJ1 = document.getElementById('listNbJ1');
+				var valueListJ2 = document.getElementById('listNbJ2');
+				var valueListJ3 = document.getElementById('listNbJ3');
+				
+				var checkbox = document.getElementById("equipeSwitch");
+				
+				var divEveryTeam = document.getElementById("divEveryTeam");
+				
+				var div = document.getElementById("divTextEquipes");
+				
+				if(checkbox.checked == true) {
+					
+					if(radButton.checked == true) {
+						
+						divEveryTeam.style.display = "block";
+						
+						if(radButton == radioB2) {
+							
+							textE1.style.display = "inline";
+							textE2.style.display = "inline";
+							textE3.style.display = "none";
+							
+							listJ1.style.display = "inline";
+							listJ2.style.display = "inline";
+							listJ3.style.display = "none";
+							
+							valueListJ3.value = "";
+							
+						} else if(radButton == radioB3) {
+							
+							textE1.style.display = "inline";
+							textE2.style.display = "inline";
+							textE3.style.display = "inline";
+							
+							listJ1.style.display = "inline";
+							listJ2.style.display = "inline";
+							listJ3.style.display = "inline";
+							
+						}
+						
+					}
+					
+				}
+				
 			}
 			
 			window.onload = function() {
@@ -158,11 +243,9 @@
 			<!-- Afficher les radio bouttons si le slider est à true -->
 			<div id="divRadioButtonsEquipes" class="bloc">
 				<p> Nombre d'équipes : </p>
-				<div class="row2"><input type="radio" id="team1" name="team" value="1" >1</div>
+	  			<div class="row3"><input type="radio" id="team2" name="team" value="2" onchange="afficheInput(this)" >2</div>
 	  			
-	  			<div class="row3"><input type="radio" id="team2" name="team" value="2" >2</div>
-	  			
-	  			<div class="row4"><input type="radio" id="team3" name="team" value="3" >3</div>
+	  			<div class="row4"><input type="radio" id="team3" name="team" value="3" onchange="afficheInput(this)" >3</div>
 	            
 			</div>
 			
@@ -170,12 +253,34 @@
 			<div id="divTextEquipes" class="bloc">
 	        	<br>
 	            <br>
-				<input id="teamI1" name="team1" type="text" placeholder="Equipe1" size="15px" />
+	            <input id="teamI1" name="team2" type="text" placeholder="Equipe1" size="15px" />
 	            <input id="teamI2" name="team2" type="text" placeholder="Equipe2" size="15px" />
 	            <input id="teamI3" name="team3" type="text" placeholder="Equipe3" size="15px" />
 			</div>
 			
+			<div class="bloc" id="divEveryTeam">
+				<br>
+				Nombre de joueurs pour chaque équipe
+				<br>
+				<div class="divList" id="divListNbJ1">
+					<br>
+					<label for="quantity">Equipe 1: &nbsp</label>
+					<input type="number" id="listNbJ1" name="listNbJ1" min="1" max="5" size="2px">
+				</div>
+				
+				<div class="divList" id="divListNbJ2">
+					<label for="quantity">&nbsp Equipe 2: &nbsp</label>
+					<input type="number" id="listNbJ2" name="listNbJ2" min="1" max="5" size="2px">
+				</div>
+				
+				<div class="divList" id="divListNbJ3">
+					<label for="quantity">&nbsp Equipe 3: </label>
+					<input type="number" id="listNbJ3" name="listNbJ3" min="1" max="4" size="2px">
+				</div>
+			</div>
+			
 			<div>
+				<br>
                 <button type="submit">Valider</button>
             </div>
 		</form>
