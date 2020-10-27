@@ -29,6 +29,9 @@ public class Equipe {
 	@Column(name="EQU_NOM")
 	private String nom;
 	
+	@Column(name="EQU_NBJOUEURS")
+	private int nbJoueurs;
+	
 	@OneToMany
 	@JoinColumn(name = "joueurs_fk")
 	private List<Joueur> listeJoueurs = new ArrayList<Joueur>();
@@ -71,6 +74,14 @@ public class Equipe {
 
 	public void setListeReponses(List<Reponse> listeReponses) {
 		this.listeReponses = listeReponses;
+	}
+
+	public int getNbJoueurs() {
+		return nbJoueurs;
+	}
+
+	public void setNbJoueurs(int nbJoueurs) {
+		this.nbJoueurs = nbJoueurs;
 	}
 	
 }

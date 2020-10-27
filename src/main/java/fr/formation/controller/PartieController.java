@@ -39,10 +39,12 @@ public class PartieController {
 		String nomE1 = contenu.get("team1");
 		Equipe E1 = new Equipe();
 		E1.setNom(nomE1);
+		E1.setNbJoueurs(Integer.parseInt(contenu.get("listNbJ1")));
 		this.srvPartie.addEquipe(E1);
 		listeEquipe.add(E1);
 		String nomE2 = contenu.get("team2");
 		Equipe E2 = new Equipe();
+		E2.setNbJoueurs(Integer.parseInt(contenu.get("listNbJ2")));
 		E2.setNom(nomE2);
 		this.srvPartie.addEquipe(E2);
 		listeEquipe.add(E2);
@@ -51,6 +53,7 @@ public class PartieController {
 			if(!nomE3.equals("")) {
 				Equipe E3 = new Equipe();
 				E3.setNom(nomE1);
+				E3.setNbJoueurs(Integer.parseInt(contenu.get("listNbJ3")));
 				this.srvPartie.addEquipe(E3);
 				listeEquipe.add(E3);
 			}
@@ -61,13 +64,6 @@ public class PartieController {
 		this.srvPartie.add(partie);
 		
 		model.addAttribute("listeEquipes",listeEquipe);
-		model.addAttribute("nbE1", contenu.get("listNbJ1"));
-		model.addAttribute("nbE2", contenu.get("listNbJ2"));
-		if(nomE3 != null) {
-			if(!nomE3.equals("")) {
-				model.addAttribute("nbE3", contenu.get("listNbJ3"));
-			}
-		}
 		
 		return "CreationJoueur";
 	}
