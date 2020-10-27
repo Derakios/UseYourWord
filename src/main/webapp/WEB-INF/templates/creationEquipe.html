@@ -223,6 +223,44 @@
 				
 			}
 			
+			function changeMaxValue() {
+				var radioB2 = document.getElementsByName('team')[0];
+				var radioB3 = document.getElementsByName('team')[1];
+				
+				var valueListJ1 = document.getElementById('listNbJ1');
+				var valueListJ2 = document.getElementById('listNbJ2');
+				var valueListJ3 = document.getElementById('listNbJ3');
+				
+				var totalValue2Teams = parseInt(valueListJ1.value, 10) + parseInt(valueListJ2.value, 10);
+				var totalValue3Teams = parseInt(valueListJ1.value, 10) + parseInt(valueListJ2.value, 10) + parseInt(valueListJ3.value, 10);
+				
+				if(radioB2.checked) {
+					
+					if(totalValue2Teams >= 6) {
+						document.getElementById('listNbJ1').max = valueListJ1.value;
+						document.getElementById('listNbJ2').max = valueListJ2.value;
+						
+					} else {
+						valueListJ1.setAttribute("max", 5);
+						valueListJ2.setAttribute("max", 5);
+						
+					}
+					
+				} else if (radioB3.checked) {
+					
+					if(totalValue3Teams >= 6) {
+						document.getElementById('listNbJ1').max = valueListJ1.value;
+						document.getElementById('listNbJ2').max = valueListJ2.value;
+						document.getElementById('listNbJ3').max = valueListJ3.value;
+					} else {
+						valueListJ1.setAttribute("max", 5);
+						valueListJ2.setAttribute("max", 5);
+						valueListJ3.setAttribute("max", 5);
+					}
+					
+				}
+			}
+			
 			window.onload = function() {
 				handleClick();
 			};
@@ -265,17 +303,17 @@
 				<div class="divList" id="divListNbJ1">
 					<br>
 					<label for="quantity">Equipe 1: &nbsp</label>
-					<input type="number" id="listNbJ1" name="listNbJ1" min="1" max="5" size="2px">
+					<input type="number" id="listNbJ1" name="listNbJ1" min="1" max="5" size="2px" oninput="changeMaxValue()">
 				</div>
 				
 				<div class="divList" id="divListNbJ2">
 					<label for="quantity">&nbsp Equipe 2: &nbsp</label>
-					<input type="number" id="listNbJ2" name="listNbJ2" min="1" max="5" size="2px">
+					<input type="number" id="listNbJ2" name="listNbJ2" min="1" max="5" size="2px" oninput="changeMaxValue()">
 				</div>
 				
 				<div class="divList" id="divListNbJ3">
 					<label for="quantity">&nbsp Equipe 3: </label>
-					<input type="number" id="listNbJ3" name="listNbJ3" min="1" max="4" size="2px">
+					<input type="number" id="listNbJ3" name="listNbJ3" min="1" max="4" size="2px" oninput="changeMaxValue()">
 				</div>
 			</div>
 			
