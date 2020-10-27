@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Page d'accueil</title>
+		
+		<style>
+			.bloc {
+				font-family: "Gill Sans", sans-serif;
+                font-weight: bold;
+			}
+			
+			.blocLine {
+                display: inline-block;
+			}
+			
+			p {
+                display: inline-block;
+                font-size: 30px;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            
+            body {
+            	text-align: center;
+            }
+			
+			input[type=text] {
+            	border-radius:5px;
+            }
+			
+			button[type=submit] {
+			    padding:5px 15px; 
+			    background:#ccc; 
+			    border:0 none;
+			    cursor:pointer;
+			    -webkit-border-radius: 5px;
+			    border-radius: 5px; 
+			}
+		</style>
+	</head>
+	<body align="center">
+		<div class="bloc">
+			<p>Votes</p>
+		</div>
+		
+		<div class="blocLine" th:each=""> 
+			<div>
+				<label th:text=""></label>
+				<input type="number" min="0" th:max="" size="2px" />
+			</div>
+		</div>
+		
+		
+		<div>
+			<br>
+            <button type="submit">Valider</button>
+        </div>
+	</body>
+</html>
