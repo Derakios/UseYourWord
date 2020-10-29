@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +15,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.transaction.annotation.Transactional;
 
 @Entity
 @Table(name="partie")
@@ -26,12 +29,10 @@ public class Partie {
 	@Column(name="PAR_ID")
 	private int id;
 	
-	@OneToMany
-	@JoinColumn(name = "equipe_fk")
+	@OneToMany(mappedBy = "partie",fetch = FetchType.EAGER)
 	private List<Equipe> listeEquipes = new ArrayList<Equipe>();
 	
-	@OneToMany
-	@JoinColumn(name = "manche_fk")
+	@OneToMany(mappedBy = "partie",fetch = FetchType.EAGER)
 	private List<Manche> listeManches = new ArrayList<Manche>();
 
 	public Partie() {

@@ -1,6 +1,7 @@
 package fr.formation.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,19 +34,22 @@ public class PartieController {
 	@PostMapping("/equipe")
 	public String equipe(@RequestParam Map<String,String> contenu, Model model){
 		Partie partie = new Partie();
+		this.srvPartie.add(partie);
 		
-		ArrayList<Equipe> listeEquipe = new ArrayList<Equipe>();
+		List<Equipe> listeEquipe = new ArrayList<Equipe>();
 		
 		String nomE1 = contenu.get("team1");
 		Equipe E1 = new Equipe();
 		E1.setNom(nomE1);
 		E1.setNbJoueurs(Integer.parseInt(contenu.get("listNbJ1")));
+		E1.setPartie(partie);
 		this.srvPartie.addEquipe(E1);
 		listeEquipe.add(E1);
 		String nomE2 = contenu.get("team2");
 		Equipe E2 = new Equipe();
 		E2.setNbJoueurs(Integer.parseInt(contenu.get("listNbJ2")));
 		E2.setNom(nomE2);
+		E2.setPartie(partie);
 		this.srvPartie.addEquipe(E2);
 		listeEquipe.add(E2);
 		String nomE3 = contenu.get("team3");
@@ -54,6 +58,7 @@ public class PartieController {
 				Equipe E3 = new Equipe();
 				E3.setNom(nomE1);
 				E3.setNbJoueurs(Integer.parseInt(contenu.get("listNbJ3")));
+				E3.setPartie(partie);
 				this.srvPartie.addEquipe(E3);
 				listeEquipe.add(E3);
 			}
@@ -61,15 +66,17 @@ public class PartieController {
 		
 		partie.setListeEquipes(listeEquipe);
 		
-		this.srvPartie.add(partie);
+		this.srvPartie.modify(partie.getId(),partie);
 		
-		model.addAttribute("listeEquipes",listeEquipe);
-		
-		return "CreationJoueur";
+		return "redirect:/joueur?id="+partie.getId();
 	}
 	
 	@GetMapping("/joueur")
-	public String joueur(){
+	public String joueur(Model model, @RequestParam int id) throws Exception{
+		Partie partie = this.srvPartie.get(id);
+		List<Equipe> equipes = partie.getListeEquipes();
+		model.addAttribute("listeEquipes",equipes);
+		
 		return "CreationJoueur";
 	}
 	

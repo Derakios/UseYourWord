@@ -6,19 +6,24 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.transaction.annotation.Transactional;
 
 @Entity
 @Table(name="equipe")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "EQU_TYPE")
+@Transactional
 public class Equipe {
 
 	@Id
@@ -32,16 +37,26 @@ public class Equipe {
 	@Column(name="EQU_NBJOUEURS")
 	private int nbJoueurs;
 	
-	@OneToMany
-	@JoinColumn(name = "joueurs_fk")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "EQU_PARTIE_ID")
+	private Partie partie;
+	
+	@OneToMany(mappedBy = "equipe",fetch = FetchType.EAGER)
 	private List<Joueur> listeJoueurs = new ArrayList<Joueur>();
 	
-	@OneToMany
-	@JoinColumn(name = "reponses_fk")
+	@OneToMany(mappedBy = "equipe",fetch = FetchType.EAGER)
 	private List<Reponse> listeReponses = new ArrayList<Reponse>();
 	
 	public Equipe() {
 		
+	}
+
+	public Partie getPartie() {
+		return partie;
+	}
+
+	public void setPartie(Partie partie) {
+		this.partie = partie;
 	}
 
 	public int getId() {
