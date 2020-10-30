@@ -1,6 +1,7 @@
 package fr.formation.models;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -43,10 +44,10 @@ public class Equipe {
 	private Partie partie;
 	
 	@OneToMany(mappedBy = "equipe",fetch = FetchType.EAGER)
-	private Set<Joueur> listeJoueurs;
+	private Set<Joueur> listeJoueurs = new HashSet<Joueur>();
 	
 	@OneToMany(mappedBy = "equipe",fetch = FetchType.EAGER)
-	private Set<Reponse> listeReponses;
+	private Set<Reponse> listeReponses = new HashSet<Reponse>();
 	
 	public Equipe() {
 		

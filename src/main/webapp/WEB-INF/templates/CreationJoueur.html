@@ -54,7 +54,7 @@
 			
 			<div class="bloc">
 				<div class="row" th:each="equipe :${listeEquipes}">
-					<label th:text="${equipe.nom}" id="${equipe.nom}"/>
+					<label th:text="${equipe.nom}" th:id="${equipe.nom}"/>
 					<div th:each="i :${#numbers.sequence( 0, equipe.nbJoueurs - 1)}" >
 						<input th:id="@{Joueur/{e}/{id}(id=${i},e=${equipe.nom})}" 
 			  				   th:name="@{Joueur/{e}/{id}(id=${i},e=${equipe.nom})}" 

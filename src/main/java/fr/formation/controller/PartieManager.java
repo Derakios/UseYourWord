@@ -95,6 +95,12 @@ public class PartieManager {
 		this.daoPartie.save(partie);
 	}
 	
+	@Transactional
+	public void modify(int id,Equipe equipe) {
+
+		this.daoEquipe.save(equipe);
+	}
+	
 	public void delete(int id) {
 		//Piece piece = pieces.stream().filter(c -> c.getId() == id).findFirst().get();
 		//pieces.remove(piece);

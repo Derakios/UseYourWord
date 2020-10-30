@@ -80,19 +80,23 @@ public class PartieController {
 		Partie partie = this.srvPartie.get(id);
 		Set<Equipe> equipes = partie.getListeEquipes();
 		model.addAttribute("listeEquipes",equipes);
+		model.addAttribute("id",partie.getId());
 		
-		return "CreationJoueur?id="+partie.getId();
+		return "CreationJoueur";
 	}
 	
 	@PostMapping("/joueur")
-	public String joueur(@RequestParam Map<String,String> contenu, Model model){
+	public String joueur(@RequestParam Map<String,String> contenu, @RequestParam int id, Model model) throws Exception{
 		
-		ArrayList<Equipe> listeEquipe = new ArrayList<Equipe>();
+		Partie partie = this.srvPartie.get(id);
+		
+		Set<Equipe> listeEquipe = partie.getListeEquipes();
 		
 		for (Map.Entry<String, String> entry : contenu.entrySet()) {
 			String cle = entry.getKey();
 			String value = entry.getValue();
 			String[] compoCle = cle.split("/");
+			
 			if(compoCle.length > 1) {
 				Joueur joueur = new Joueur();
 				joueur.setPseudo(value);
@@ -101,22 +105,15 @@ public class PartieController {
 						joueur.setEquipe(e);
 						this.srvPartie.add(joueur);
 						e.getListeJoueurs().add(joueur);
-					}
-				}
-				
-				
-			}
-			else {
-				ArrayList<Equipe> equipes = (ArrayList<Equipe>) this.srvPartie.getAllEquipe();
-				for(Equipe e : equipes) {
-					if (e.getNom().equals(cle)){
-						listeEquipe.add(e);
+						this.srvPartie.modify(e.getId(), e);
 					}
 				}
 			}
 	    }
+		partie.setListeEquipes(listeEquipe);
+		this.srvPartie.modify(id, partie);
 		
-		return "redirect:/partie?id="+listeEquipe.get(0).getPartie().getId();
+		return "redirect:/partie?id="+id+"&manche=1";
 	}
 	
 	@GetMapping("/partie")
