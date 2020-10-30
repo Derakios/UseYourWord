@@ -44,5 +44,55 @@ public class Joueur {
 	public Joueur() {
 		
 	}
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	public String getPseudo() {
+		return pseudo;
+	}
+
+
+	public void setPseudo(String pseudo) {
+		this.pseudo = pseudo;
+	}
+
+
+	public String getRole() {
+		return role;
+	}
+
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+
+	public String getMdp() {
+		return mdp;
+	}
+
+
+	public void setMdp(String mdp) {
+		this.mdp = mdp;
+	}
+
+
+	public Equipe getEquipe() {
+		return equipe;
+	}
+
+
+	public void setEquipe(Equipe equipe) {
+		this.equipe = equipe;
+	}
 	
 }

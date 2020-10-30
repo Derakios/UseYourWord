@@ -3,6 +3,7 @@ package fr.formation.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.formation.models.Equipe;
+import fr.formation.models.Joueur;
 import fr.formation.models.Partie;
 
 @Controller
@@ -64,7 +66,9 @@ public class PartieController {
 			}
 		}
 		
-		partie.setListeEquipes(listeEquipe);
+		for(Equipe e : listeEquipe) {
+			partie.getListeEquipes().add(e);
+		}
 		
 		this.srvPartie.modify(partie.getId(),partie);
 		
@@ -74,18 +78,45 @@ public class PartieController {
 	@GetMapping("/joueur")
 	public String joueur(Model model, @RequestParam int id) throws Exception{
 		Partie partie = this.srvPartie.get(id);
-		List<Equipe> equipes = partie.getListeEquipes();
+		Set<Equipe> equipes = partie.getListeEquipes();
 		model.addAttribute("listeEquipes",equipes);
 		
-		return "CreationJoueur";
+		return "CreationJoueur?id="+partie.getId();
 	}
 	
 	@PostMapping("/joueur")
 	public String joueur(@RequestParam Map<String,String> contenu, Model model){
 		
+		ArrayList<Equipe> listeEquipe = new ArrayList<Equipe>();
 		
+		for (Map.Entry<String, String> entry : contenu.entrySet()) {
+			String cle = entry.getKey();
+			String value = entry.getValue();
+			String[] compoCle = cle.split("/");
+			if(compoCle.length > 1) {
+				Joueur joueur = new Joueur();
+				joueur.setPseudo(value);
+				for(Equipe e : listeEquipe) {
+					if(e.getNom().equals(compoCle[1])) {
+						joueur.setEquipe(e);
+						this.srvPartie.add(joueur);
+						e.getListeJoueurs().add(joueur);
+					}
+				}
+				
+				
+			}
+			else {
+				ArrayList<Equipe> equipes = (ArrayList<Equipe>) this.srvPartie.getAllEquipe();
+				for(Equipe e : equipes) {
+					if (e.getNom().equals(cle)){
+						listeEquipe.add(e);
+					}
+				}
+			}
+	    }
 		
-		return "redirect:/partie";
+		return "redirect:/partie?id="+listeEquipe.get(0).getPartie().getId();
 	}
 	
 	@GetMapping("/partie")

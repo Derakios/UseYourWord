@@ -2,6 +2,7 @@ package fr.formation.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -42,10 +43,10 @@ public class Equipe {
 	private Partie partie;
 	
 	@OneToMany(mappedBy = "equipe",fetch = FetchType.EAGER)
-	private List<Joueur> listeJoueurs = new ArrayList<Joueur>();
+	private Set<Joueur> listeJoueurs;
 	
 	@OneToMany(mappedBy = "equipe",fetch = FetchType.EAGER)
-	private List<Reponse> listeReponses = new ArrayList<Reponse>();
+	private Set<Reponse> listeReponses;
 	
 	public Equipe() {
 		
@@ -75,19 +76,19 @@ public class Equipe {
 		this.nom = nom;
 	}
 
-	public List<Joueur> getListeJoueurs() {
+	public Set<Joueur> getListeJoueurs() {
 		return listeJoueurs;
 	}
 
-	public void setListeJoueurs(List<Joueur> listeJoueurs) {
+	public void setListeJoueurs(Set<Joueur> listeJoueurs) {
 		this.listeJoueurs = listeJoueurs;
 	}
 
-	public List<Reponse> getListeReponses() {
+	public Set<Reponse> getListeReponses() {
 		return listeReponses;
 	}
 
-	public void setListeReponses(List<Reponse> listeReponses) {
+	public void setListeReponses(Set<Reponse> listeReponses) {
 		this.listeReponses = listeReponses;
 	}
 
