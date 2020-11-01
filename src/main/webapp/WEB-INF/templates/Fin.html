@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="UTF-8">
+		<title>Page d'accueil</title>
+		
+		<style>
+			.bloc {
+				font-family: "Gill Sans", sans-serif;
+                font-weight: bold;
+			}
+			
+			p {
+                display: inline-block;
+                font-size: 35px;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            
+            body {
+            	text-align: center;
+            }
+			
+			input[type=submit] {
+			    padding:5px 15px; 
+			    background:#ccc; 
+			    border:0 none;
+			    cursor:pointer;
+			    -webkit-border-radius: 5px;
+			    border-radius: 5px; 
+			}
+		</style>
+	</head>
+	<body align="center">
+		<div>
+			<label th:text="@{Le gagnant est : {e}(e=${gagnant})}"></label>
+		</div>
+
+        <div class="bloc">
+            <a th:href="@{ ajoutDonnees }">Ajouter Donnees</a>
+		</div>
+		 <div class="bloc">
+            <a th:href="@{ equipe }">Nouvelle Partie</a>
+		</div>
+	</body>
+</html>

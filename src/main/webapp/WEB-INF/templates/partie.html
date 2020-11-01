@@ -58,13 +58,7 @@
 		
 		<!-- Vidéo -->
 		<div class="bloc" th:if="${manche == 3}">
-			<iframe width="320" height="240" th:src="${donnee}"></iframe>
-			<!-- Autre façon de faire ?
-			<video width="320" height="240" controls>
-				<source id="video" th:src="${donnee}" type="video/mp4">
-			</video>
-			-->
-			
+			<iframe width="560" height="315" th:src="${donnee}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 		</div>
 		
 		<form method="POST">

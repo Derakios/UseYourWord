@@ -43,17 +43,16 @@
 			<p>Votes</p>
 		</div>
 
-		<div class="blocLine" th:each="reponse : ${listeReponse}"> 
-			<div>
-				<label th:id="${reponse.equipe.nom}" th:text="${reponse.texte}"></label>
-				<input type="number" min="0" th:max="${nbJoueur}" size="2px" />
+		<form method="POST">
+			<div class="bloc" th:each="reponse : ${listeReponse}"> 
+				<label th:id="@{Label/{e}/{id}(id=${reponse.id},e=${reponse.equipe.nom})}" th:name="@{Label/{e}/{id}(id=${reponse.id},e=${reponse.equipe.nom})}" th:text="${reponse.texte}"></label>
+				<input th:id="@{Reponse/{e}/{id}(id=${reponse.id},e=${reponse.equipe.nom})}" th:name="@{Reponse/{e}/{id}(id=${reponse.id},e=${reponse.equipe.nom})}" type="number" value="0" min="0" th:max="${nbJoueur}" size="2px" />
 			</div>
-		</div>
-		
-		
-		<div>
-			<br>
-            <button type="submit">Valider</button>
-        </div>
+			
+			<div>
+				<br>
+	            <button type="submit">Valider</button>
+	        </div>
+	    </form>
 	</body>
 </html>

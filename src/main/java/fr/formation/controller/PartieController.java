@@ -179,7 +179,7 @@ public class PartieController {
 				Video video = listeVideo.get(nombreAleatoire);
 				donnee = video.getLienVideo();
 				
-				mancheJeu.setVideo(video);;
+				mancheJeu.setVideo(video);
 				mancheJeu.setPartie(partie);
 				this.srvPartie.add(mancheJeu);
 				listeManche.add(mancheJeu);
@@ -204,8 +204,10 @@ public class PartieController {
 		
 		for (Iterator<Manche> it = listeManche.iterator(); it.hasNext(); ) {
 	        Manche m = it.next();
-	        cpt++;
-	        if(cpt == manche) {
+	        if(mancheJeu == null) {
+	        	mancheJeu = m;
+	        }
+	        if(m.getId() > mancheJeu.getId()) {
 	        	mancheJeu = m;
 	        }
 	    }
@@ -248,29 +250,101 @@ public class PartieController {
 			nbJoueur = nbJoueur+e.getNbJoueurs();
 		}
 		Set<Manche> listeManche = partie.getListeManches();
+		
 		Manche mancheJeu = null;
 		int cpt = 0;
 		
 		for (Iterator<Manche> it = listeManche.iterator(); it.hasNext(); ) {
 	        Manche m = it.next();
-	        cpt++;
-	        if(cpt == manche) {
+	        if(mancheJeu == null) {
+	        	mancheJeu = m;
+	        }
+	        if(m.getId() > mancheJeu.getId()) {
 	        	mancheJeu = m;
 	        }
 	    }
 		
-		model.addAttribute("listeReponse",mancheJeu.getListeReponse());
+		Set<Reponse> listeReponse = mancheJeu.getListeReponse();
+		
+		model.addAttribute("listeReponse",listeReponse);
 		model.addAttribute("nbJoueur",nbJoueur);
 		
 		return "votes";
 	}
 	
 	@PostMapping("/votes")
-	public String votes(@RequestParam Map<String,String> contenu, @RequestParam int id, @RequestParam int manche, Model model){
+	public String votes(@RequestParam Map<String,String> contenu, @RequestParam int id, @RequestParam int manche, Model model) throws Exception{
 		
+		Partie partie = this.srvPartie.get(id);
 		
+		Set<Equipe> listeEquipe = partie.getListeEquipes();
+		Set<Manche> listeManche = partie.getListeManches();
 		
-		return "redirect:/partie?id="+id+"&manche="+manche;
+		Equipe equipe = null;
+		int voteMax = -1;
+		
+		for (Map.Entry<String, String> entry : contenu.entrySet()) {
+			String cle = entry.getKey();
+			String value = entry.getValue();
+			String[] compoCle = cle.split("/");
+			
+			if(compoCle.length > 1) {
+				
+				for(Equipe e : listeEquipe) {
+					if(e.getNom().equals(compoCle[1])) {
+						for(Reponse r : e.getListeReponses()) {
+							if(r.getId() == Integer.parseInt(compoCle[2])) {
+								if(Integer.parseInt(value)>voteMax) {
+									voteMax = Integer.parseInt(value);
+									equipe = e;
+								}
+								r.setNbVote(Integer.parseInt(value));
+								this.srvPartie.modify(r.getId(), r);
+							}
+						}
+					}
+				}
+			}
+	    }
+		
+		for(Equipe e : listeEquipe) {
+			if(e.getId() == equipe.getId()) {
+				e.setScore(e.getScore()+1);
+				this.srvPartie.modify(e.getId(), e);
+			}
+		}
+		
+		partie.setListeEquipes(listeEquipe);
+		this.srvPartie.modify(id, partie);
+		
+		manche = manche+1;
+		
+		if(manche < 4) {
+			return "redirect:/partie?id="+id+"&manche="+manche;
+		}
+		else {
+			return "redirect:/fin?id="+id;
+		}
+	}
+	
+	@GetMapping("/fin")
+	public String fin(Model model, @RequestParam int id) throws Exception{
+		Partie partie = this.srvPartie.get(id);
+		Set<Equipe> listeEquipe = partie.getListeEquipes();
+		Equipe gagnant = null;
+		
+		for(Equipe e : listeEquipe) {
+			if(gagnant == null) {
+				gagnant = e;
+			}
+			else if(gagnant.getScore() < e.getScore()) {
+				gagnant = e;
+			}
+		}
+		
+		model.addAttribute("gagnant",gagnant.getNom());
+		
+		return "Fin";
 	}
 	
 	@GetMapping("/ajoutDonnees")

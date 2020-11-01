@@ -118,6 +118,12 @@ public class PartieManager {
 	}
 	
 	@Transactional
+	public void modify(int id,Reponse reponse) {
+
+		this.daoReponse.save(reponse);
+	}
+	
+	@Transactional
 	public void modify(int id,Equipe equipe) {
 
 		this.daoEquipe.save(equipe);
