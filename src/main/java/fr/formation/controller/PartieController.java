@@ -117,7 +117,8 @@ public class PartieController {
 	}
 	
 	@GetMapping("/partie")
-	public String partie(){
+	public String partie(Model model, @RequestParam int id, @RequestParam int manche){
+		
 		return "partie";
 	}
 	
