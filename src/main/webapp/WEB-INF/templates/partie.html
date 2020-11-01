@@ -35,7 +35,7 @@
 		    var num = document.getElementById('timer');
 		      if(i == 0) {
 		      	num.innerText = i;
-				document.location.href="https://validator.w3.org/"; 
+		      	document.formulaire.submit();
 		      }
 		      else {
 		      	i--;
@@ -61,7 +61,7 @@
 			<iframe width="560" height="315" th:src="${donnee}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 		</div>
 		
-		<form method="POST">
+		<form method="POST" name="formulaire">
 			<!-- Réponses des joueurs -->
 			<div th:each="joueur : ${listeJoueur}" class="bloc">
 				<input type="text" th:id="@{Joueur/{e}/{id}(id=${joueur.id},e=${joueur.equipe.nom})}" th:name="@{Joueur/{e}/{id}(id=${joueur.id},e=${joueur.equipe.nom})}" th:placeholder="@{ReponseJoueur/{e}/{id}(id=${joueur.id},e=${joueur.equipe.nom})}"/>
