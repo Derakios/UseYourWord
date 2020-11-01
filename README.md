@@ -11,4 +11,4 @@ Resultat final :
 -probleme concernant les votes tous les votes sont attribués en même temps et on ne check donc pas le fait que un utilisateur est voté pour lui même. (il ne peut juste pas avoir tous les votes c'est la seule securité que nous avons mis pour gerer le fait qu'il n'ai pas voter pour lui).
 -concernant le timer il existe et fonctionne. Ce qui ne fonctionne pas on peut voter pour quelqu'un qui n'as pas repondu.
 
-il faut cependant configurer la base en local pour faire fonctionner le jeu.
+il faut cependant configurer la base en local pour faire fonctionner le jeu. (si il ya un mdp sur votre base en local).
