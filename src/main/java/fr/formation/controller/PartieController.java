@@ -1,6 +1,7 @@
 package fr.formation.controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import fr.formation.models.Equipe;
 import fr.formation.models.Image;
 import fr.formation.models.Joueur;
+import fr.formation.models.Manche;
 import fr.formation.models.Partie;
 import fr.formation.models.Phrase;
 import fr.formation.models.Video;
@@ -137,9 +139,11 @@ public class PartieController {
 		model.addAttribute("manche",manche);
 		model.addAttribute("listeJoueur",listeJoueur);
 		
+		Manche mancheJeu = new Manche();
 		String donnee = "";
 		Random rand = new Random(); 
 		int nombreAleatoire;
+		Set<Manche> listeManche = partie.getListeManches();
 		
 		switch(manche) {
 			case 1 :
@@ -147,20 +151,40 @@ public class PartieController {
 				nombreAleatoire = rand.nextInt(listePhrase.size());
 				Phrase phrase = listePhrase.get(nombreAleatoire);
 				donnee = phrase.getTexte();
+				
+				mancheJeu.setPhrase(phrase);
+				mancheJeu.setPartie(partie);
+				this.srvPartie.add(mancheJeu);
+				listeManche.add(mancheJeu);
+				this.srvPartie.modify(id,partie);
+				
 				break;
 			case 2 :
 				ArrayList<Image> listeImage = (ArrayList<Image>) this.srvPartie.getAllImage();
 				nombreAleatoire = rand.nextInt(listeImage.size());
 				Image image = listeImage.get(nombreAleatoire);
 				donnee = image.getLienImage();
+				
+				mancheJeu.setImage(image);
+				mancheJeu.setPartie(partie);
+				this.srvPartie.add(mancheJeu);
+				listeManche.add(mancheJeu);
+				this.srvPartie.modify(id,partie);
 				break;
 			case 3 :
 				ArrayList<Video> listeVideo = (ArrayList<Video>) this.srvPartie.getAllVideo();
 				nombreAleatoire = rand.nextInt(listeVideo.size());
 				Video video = listeVideo.get(nombreAleatoire);
 				donnee = video.getLienVideo();
+				
+				mancheJeu.setVideo(video);;
+				mancheJeu.setPartie(partie);
+				this.srvPartie.add(mancheJeu);
+				listeManche.add(mancheJeu);
+				this.srvPartie.modify(id,partie);
 				break;
 		}
+		
 		model.addAttribute("donnee",donnee);
 		
 		return "partie";

@@ -10,12 +10,14 @@ import org.springframework.stereotype.Service;
 import fr.formation.dao.IEquipeRepository;
 import fr.formation.dao.IImageRepository;
 import fr.formation.dao.IJoueurRepository;
+import fr.formation.dao.IMancheRepository;
 import fr.formation.dao.IPartieRepository;
 import fr.formation.dao.IPhraseRepository;
 import fr.formation.dao.IVideoRepository;
 import fr.formation.models.Equipe;
 import fr.formation.models.Image;
 import fr.formation.models.Joueur;
+import fr.formation.models.Manche;
 import fr.formation.models.Partie;
 import fr.formation.models.Phrase;
 import fr.formation.models.Video;
@@ -35,6 +37,8 @@ public class PartieManager {
 	private IEquipeRepository daoEquipe;
 	@Autowired
 	private IJoueurRepository daoJoueur;
+	@Autowired
+	private IMancheRepository daoManche;
 	
 	public void addDonnees(String lien, String type) {
 		
@@ -83,6 +87,10 @@ public class PartieManager {
 	
 	public void add(Joueur joueur) {
 		this.daoJoueur.save(joueur);
+	}
+	
+	public void add(Manche manche) {
+		this.daoManche.save(manche);
 	}
 	
 	public List<Partie> findAllPartie(){
