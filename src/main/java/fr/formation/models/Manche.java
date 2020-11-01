@@ -47,5 +47,53 @@ public class Manche {
 	public Manche() {
 		
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Phrase getPhrase() {
+		return phrase;
+	}
+
+	public void setPhrase(Phrase phrase) {
+		this.phrase = phrase;
+	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
+
+	public Video getVideo() {
+		return video;
+	}
+
+	public void setVideo(Video video) {
+		this.video = video;
+	}
+
+	public Partie getPartie() {
+		return partie;
+	}
+
+	public void setPartie(Partie partie) {
+		this.partie = partie;
+	}
+
+	public int getTemps() {
+		return temps;
+	}
+
+	public void setTemps(int temps) {
+		this.temps = temps;
+	}
 	
 }
