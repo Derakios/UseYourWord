@@ -3,6 +3,7 @@ package fr.formation.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.formation.models.Equipe;
+import fr.formation.models.Image;
 import fr.formation.models.Joueur;
 import fr.formation.models.Partie;
+import fr.formation.models.Phrase;
+import fr.formation.models.Video;
 
 @Controller
 public class PartieController {
@@ -117,7 +121,47 @@ public class PartieController {
 	}
 	
 	@GetMapping("/partie")
-	public String partie(Model model, @RequestParam int id, @RequestParam int manche){
+	public String partie(Model model, @RequestParam int id, @RequestParam int manche) throws Exception{
+		
+		Partie partie = this.srvPartie.get(id);
+		Set<Equipe> listeEquipe = partie.getListeEquipes();
+		ArrayList<Joueur> listeJoueur = new ArrayList<Joueur>();
+		
+		for(Equipe e : listeEquipe) {
+			Set<Joueur> liste = e.getListeJoueurs();
+			for(Joueur j : liste) {
+				listeJoueur.add(j);
+			}
+		}
+		
+		model.addAttribute("manche",manche);
+		model.addAttribute("listeJoueur",listeJoueur);
+		
+		String donnee = "";
+		Random rand = new Random(); 
+		int nombreAleatoire;
+		
+		switch(manche) {
+			case 1 :
+				ArrayList<Phrase> listePhrase = (ArrayList<Phrase>) this.srvPartie.getAllPhrase();
+				nombreAleatoire = rand.nextInt(listePhrase.size());
+				Phrase phrase = listePhrase.get(nombreAleatoire);
+				donnee = phrase.getTexte();
+				break;
+			case 2 :
+				ArrayList<Image> listeImage = (ArrayList<Image>) this.srvPartie.getAllImage();
+				nombreAleatoire = rand.nextInt(listeImage.size());
+				Image image = listeImage.get(nombreAleatoire);
+				donnee = image.getLienImage();
+				break;
+			case 3 :
+				ArrayList<Video> listeVideo = (ArrayList<Video>) this.srvPartie.getAllVideo();
+				nombreAleatoire = rand.nextInt(listeVideo.size());
+				Video video = listeVideo.get(nombreAleatoire);
+				donnee = video.getLienVideo();
+				break;
+		}
+		model.addAttribute("donnee",donnee);
 		
 		return "partie";
 	}

@@ -28,28 +28,25 @@
 	<body>
 		
 		<!-- Phrase -->
-		<div class="bloc" th:if="${}">
-			<input type="text" th:name="@{}" th:value="@{}" size="100px" disabled="disabled" />
+		<div class="bloc" th:if="${manche == 1}">
+			<input id="phrase" type="text" name="phrase" th:value="${donnee}" size="100px" disabled="disabled" />
 		</div>
 		
 		<!-- Image -->
-		<div class="bloc" th:if="${}">
-			<img th:src="@{}"/>
+		<div class="bloc" th:if="${manche == 2}">
+			<img id="image" th:src="${donnee}"/>
 		</div>
 		
 		<!-- Vidéo -->
-		<div class="bloc" th:if="${}">
+		<div class="bloc" th:if="${manche == 3}">
 			<video width="320" height="240" controls>
-				<source th:src="@{}" type="video/mp4">
+				<source id="video" th:src="${donnee}" type="video/mp4">
 			</video> 
 		</div>
 		
 		<!-- Réponses des joueurs -->
-		<div th:each="... : ${}" class="bloc">
-			<!-- Pour chaque joueur de chaque équipe -->
-			<div th:each="... : ${}">
-				<input type="text" th:id="@{}" th:name="@{}" th:placeholder="#{}"/>
-			</div>
+		<div th:each="joueur : ${listeJoueur}" class="bloc">
+			<input type="text" th:id="@{Joueur/{e}/{id}(id=${joueur.id},e=${joueur.equipe.nom})}" th:name="@{Joueur/{e}/{id}(id=${joueur.id},e=${joueur.equipe.nom})}" th:placeholder="@{ReponseJoueur/{e}/{id}(id=${joueur.id},e=${joueur.equipe.nom})}"/>
 		</div>
 		
 	</body>
