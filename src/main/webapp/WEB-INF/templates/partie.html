@@ -24,9 +24,28 @@
             	border-radius:5px;
             }
 		</style>
+		
+		<script type="text/javascript">
+			var i = 60;
+		    
+		    var interval = setInterval( increment, 1000);
+		    
+	
+		    function increment(){
+		    var num = document.getElementById('timer');
+		      if(i == 0) {
+		      	num.innerText = i;
+				document.location.href="https://validator.w3.org/"; 
+		      }
+		      else {
+		      	i--;
+		        num.innerText = i;
+		      }
+		    }
+		</script>
 	</head>
 	<body>
-		
+		<div id="timer" class="bloc">60</div>
 		<!-- Phrase -->
 		<div class="bloc" th:if="${manche == 1}">
 			<input id="phrase" type="text" name="phrase" th:value="${donnee}" size="100px" disabled="disabled" />
@@ -39,15 +58,27 @@
 		
 		<!-- Vidéo -->
 		<div class="bloc" th:if="${manche == 3}">
+			<iframe width="320" height="240" th:src="${donnee}"></iframe>
+			<!-- Autre façon de faire ?
 			<video width="320" height="240" controls>
 				<source id="video" th:src="${donnee}" type="video/mp4">
-			</video> 
+			</video>
+			-->
+			
 		</div>
 		
-		<!-- Réponses des joueurs -->
-		<div th:each="joueur : ${listeJoueur}" class="bloc">
-			<input type="text" th:id="@{Joueur/{e}/{id}(id=${joueur.id},e=${joueur.equipe.nom})}" th:name="@{Joueur/{e}/{id}(id=${joueur.id},e=${joueur.equipe.nom})}" th:placeholder="@{ReponseJoueur/{e}/{id}(id=${joueur.id},e=${joueur.equipe.nom})}"/>
-		</div>
+		<form method="POST">
+			<!-- Réponses des joueurs -->
+			<div th:each="joueur : ${listeJoueur}" class="bloc">
+				<input type="text" th:id="@{Joueur/{e}/{id}(id=${joueur.id},e=${joueur.equipe.nom})}" th:name="@{Joueur/{e}/{id}(id=${joueur.id},e=${joueur.equipe.nom})}" th:placeholder="@{ReponseJoueur/{e}/{id}(id=${joueur.id},e=${joueur.equipe.nom})}"/>
+			</div>
+			
+			<div class="bloc">
+				<br>
+				<br>
+				<button type="submit" value="Terminer">Terminer</button>
+			</div>
+		</form>
 		
 	</body>
 </html>
