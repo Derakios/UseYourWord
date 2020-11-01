@@ -36,6 +36,9 @@ public class Equipe {
 	@Column(name="EQU_NOM")
 	private String nom;
 	
+	@Column(name="EQU_SCORE")
+	private int score;
+	
 	@Column(name="EQU_NBJOUEURS")
 	private int nbJoueurs;
 	
@@ -99,6 +102,14 @@ public class Equipe {
 
 	public void setNbJoueurs(int nbJoueurs) {
 		this.nbJoueurs = nbJoueurs;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 	
 }

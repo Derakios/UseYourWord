@@ -13,6 +13,7 @@ import fr.formation.dao.IJoueurRepository;
 import fr.formation.dao.IMancheRepository;
 import fr.formation.dao.IPartieRepository;
 import fr.formation.dao.IPhraseRepository;
+import fr.formation.dao.IReponseRepository;
 import fr.formation.dao.IVideoRepository;
 import fr.formation.models.Equipe;
 import fr.formation.models.Image;
@@ -20,6 +21,7 @@ import fr.formation.models.Joueur;
 import fr.formation.models.Manche;
 import fr.formation.models.Partie;
 import fr.formation.models.Phrase;
+import fr.formation.models.Reponse;
 import fr.formation.models.Video;
 
 @Service
@@ -39,6 +41,8 @@ public class PartieManager {
 	private IJoueurRepository daoJoueur;
 	@Autowired
 	private IMancheRepository daoManche;
+	@Autowired
+	private IReponseRepository daoReponse;
 	
 	public void addDonnees(String lien, String type) {
 		
@@ -93,6 +97,10 @@ public class PartieManager {
 		this.daoManche.save(manche);
 	}
 	
+	public void add(Reponse reponse) {
+		this.daoReponse.save(reponse);
+	}
+	
 	public List<Partie> findAllPartie(){
 		return this.daoPartie.findAll();
 	}
@@ -101,6 +109,12 @@ public class PartieManager {
 	public void modify(int id,Partie partie) {
 
 		this.daoPartie.save(partie);
+	}
+	
+	@Transactional
+	public void modify(int id,Manche manche) {
+
+		this.daoManche.save(manche);
 	}
 	
 	@Transactional

@@ -30,12 +30,59 @@ public class Reponse {
 	@Column(name="REP_TEXTE")
 	private String texte;
 	
+	@Column(name="REP_NBVOTE")
+	private int nbVote;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "REP_EQUIPE_ID")
 	private Equipe equipe;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "REP_MANCHE_ID")
+	private Manche manche;
+	
 	public Reponse() {
 		
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getTexte() {
+		return texte;
+	}
+
+	public void setTexte(String texte) {
+		this.texte = texte;
+	}
+
+	public Equipe getEquipe() {
+		return equipe;
+	}
+
+	public void setEquipe(Equipe equipe) {
+		this.equipe = equipe;
+	}
+
+	public Manche getManche() {
+		return manche;
+	}
+
+	public void setManche(Manche manche) {
+		this.manche = manche;
+	}
+
+	public int getNbVote() {
+		return nbVote;
+	}
+
+	public void setNbVote(int nbVote) {
+		this.nbVote = nbVote;
 	}
 
 }

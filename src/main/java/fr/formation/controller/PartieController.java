@@ -2,6 +2,7 @@ package fr.formation.controller;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -20,6 +21,7 @@ import fr.formation.models.Joueur;
 import fr.formation.models.Manche;
 import fr.formation.models.Partie;
 import fr.formation.models.Phrase;
+import fr.formation.models.Reponse;
 import fr.formation.models.Video;
 
 @Controller
@@ -191,10 +193,84 @@ public class PartieController {
 	}
 	
 	@PostMapping("/partie")
-	public String partie(@RequestParam Map<String,String> contenu, Model model){
+	public String partie(@RequestParam Map<String,String> contenu, @RequestParam int id, @RequestParam int manche, Model model) throws Exception{
+		
+		Partie partie = this.srvPartie.get(id);
+		
+		Set<Equipe> listeEquipe = partie.getListeEquipes();
+		Set<Manche> listeManche = partie.getListeManches();
+		Manche mancheJeu = null;
+		int cpt = 0;
+		
+		for (Iterator<Manche> it = listeManche.iterator(); it.hasNext(); ) {
+	        Manche m = it.next();
+	        cpt++;
+	        if(cpt == manche) {
+	        	mancheJeu = m;
+	        }
+	    }
+		
+		for (Map.Entry<String, String> entry : contenu.entrySet()) {
+			String cle = entry.getKey();
+			String value = entry.getValue();
+			String[] compoCle = cle.split("/");
+			
+			if(compoCle.length > 1) {
+				Reponse reponse = new Reponse();
+				for(Equipe e : listeEquipe) {
+					if(e.getNom().equals(compoCle[1])) {
+						reponse.setEquipe(e);
+						reponse.setManche(mancheJeu);
+						reponse.setTexte(value);
+						this.srvPartie.add(reponse);
+						e.getListeReponses().add(reponse);
+						mancheJeu.getListeReponse().add(reponse);
+						this.srvPartie.modify(mancheJeu.getId(), mancheJeu);
+						this.srvPartie.modify(e.getId(), e);
+					}
+				}
+			}
+	    }
+		partie.setListeEquipes(listeEquipe);
+		partie.setListeManches(listeManche);
+		this.srvPartie.modify(id, partie);
+		
+		return "redirect:/votes?id="+id+"&manche="+manche;
+	}
+	
+	@GetMapping("/votes")
+	public String votes(Model model, @RequestParam int id, @RequestParam int manche) throws Exception{
+		
+		Partie partie = this.srvPartie.get(id);
+		int nbJoueur = 0;
+		Set<Equipe> listeEquipe = partie.getListeEquipes();
+		for(Equipe e : listeEquipe) {
+			nbJoueur = nbJoueur+e.getNbJoueurs();
+		}
+		Set<Manche> listeManche = partie.getListeManches();
+		Manche mancheJeu = null;
+		int cpt = 0;
+		
+		for (Iterator<Manche> it = listeManche.iterator(); it.hasNext(); ) {
+	        Manche m = it.next();
+	        cpt++;
+	        if(cpt == manche) {
+	        	mancheJeu = m;
+	        }
+	    }
+		
+		model.addAttribute("listeReponse",mancheJeu.getListeReponse());
+		model.addAttribute("nbJoueur",nbJoueur);
+		
+		return "votes";
+	}
+	
+	@PostMapping("/votes")
+	public String votes(@RequestParam Map<String,String> contenu, @RequestParam int id, @RequestParam int manche, Model model){
 		
 		
-		return "redirect:/partie";
+		
+		return "redirect:/partie?id="+id+"&manche="+manche;
 	}
 	
 	@GetMapping("/ajoutDonnees")

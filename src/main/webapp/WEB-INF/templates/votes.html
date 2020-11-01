@@ -42,11 +42,11 @@
 		<div class="bloc">
 			<p>Votes</p>
 		</div>
-		
-		<div class="blocLine" th:each=""> 
+
+		<div class="blocLine" th:each="reponse : ${listeReponse}"> 
 			<div>
-				<label th:text=""></label>
-				<input type="number" min="0" th:max="" size="2px" />
+				<label th:id="${reponse.equipe.nom}" th:text="${reponse.texte}"></label>
+				<input type="number" min="0" th:max="${nbJoueur}" size="2px" />
 			</div>
 		</div>
 		
