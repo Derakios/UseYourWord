@@ -27,7 +27,7 @@ public class JpaConfig {
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver"); 
 		dataSource.setUrl("jdbc:mysql://localhost:3306/UseYourWords?createDatabaseIfNotExist=true&serverTimezone=UTC"); 
 		dataSource.setUsername("root");
-		dataSource.setPassword("Sharkalex99");
+		dataSource.setPassword("");
 		dataSource.setMaxTotal(10); 
 		return dataSource;
 	}
