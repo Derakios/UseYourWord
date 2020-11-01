@@ -249,6 +249,7 @@ public class PartieController {
 		for(Equipe e : listeEquipe) {
 			nbJoueur = nbJoueur+e.getNbJoueurs();
 		}
+		nbJoueur = nbJoueur-1;
 		Set<Manche> listeManche = partie.getListeManches();
 		
 		Manche mancheJeu = null;
